@@ -1,0 +1,64 @@
+Benchmarking Statistics
+
+—————————————————————————————————————————————
+SUMMARY:
+
+Max No. connections that can be handled by server before connection drops= 16
+
+At Concurrency Level 16:
+
+Max no. of requests per second (RPS) =  250.70 ms
+
+Average response time/latency per request = 59.832 ms
+
+99 percentile of response time/latency per request = 399 ms
+
+—————————————————————————————————————————————
+APACHE BENCHMARKING OUTPUT:
+
+ab -n 100 -c 15 http://ec2-54-160-115-230.compute-1.amaonaws.com:80/?keywords=helloworld+foo+bar
+This is ApacheBench, Version 2.3 <$Revision: 1748469 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking ec2-54-160-115-230.compute-1.amaonaws.com (be patient).....done
+
+
+Server Software:        nginx
+Server Hostname:        ec2-54-160-115-230.compute-1.amaonaws.com
+Server Port:            80
+
+Document Path:          /?keywords=helloworld+foo+bar
+Document Length:        0 bytes
+
+Concurrency Level:      15
+Time taken for tests:   0.399 seconds
+Complete requests:      100
+Failed requests:        1
+   (Connect: 0, Receive: 0, Length: 1, Exceptions: 0)
+Non-2xx responses:      100
+Total transferred:      10752 bytes
+HTML transferred:       11 bytes
+Requests per second:    250.70 [#/sec] (mean)
+Time per request:       59.832 [ms] (mean)
+Time per request:       3.989 [ms] (mean, across all concurrent requests)
+Transfer rate:          26.32 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       22   26   2.1     25      31
+Processing:    22   29  35.1     25     376
+Waiting:       22   29  35.1     25     375
+Total:         45   54  34.9     51     399
+
+Percentage of the requests served within a certain time (ms)
+  50%     51
+  66%     52
+  75%     52
+  80%     52
+  90%     56
+  95%     57
+  98%     59
+  99%    399
+ 100%    399 (longest request)
+

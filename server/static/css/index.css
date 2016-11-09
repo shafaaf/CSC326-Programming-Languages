@@ -1,0 +1,34 @@
+/*
+	For classes: .
+	For ids: #
+*/
+
+#heading{
+	text-align: center;
+}
+
+#signInBtn{
+	font-size: 150%;
+	color:black;
+}
+
+/* Inside the modal form */
+#profilePicture{
+	text-align: center;
+	width:40%;
+}
+
+/* Query search section */
+#logoImage{
+    text-align: center;
+    margin-left: 9%;
+}
+
+#queryInput{
+	width:80%;
+	margin: 0 auto;
+}
+
+#queryForm{
+	text-align: center;
+}

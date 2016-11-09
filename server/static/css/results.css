@@ -1,0 +1,29 @@
+h1{
+	text-align:center;
+}
+
+table{
+	text-align:center;
+	margin-left:46%;
+}
+
+h2{
+	text-align:center;
+}
+
+
+#signInBtn{
+	font-size: 150%;
+	color:black;
+}
+
+
+/* Inside the modal form */
+#profilePicture{
+	text-align: center;
+	width:40%;
+}
+
+#mostRecent{
+	text-align: center;
+}
