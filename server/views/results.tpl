@@ -74,10 +74,24 @@
 	% end
 
 
+	<!-- Query form-->
+	<div class="container">
+		<div class="row" id = ""> <!-- Put here to move whole body around-->
+			<div class="col-md-offset-4 col-md-8">				
+				<form action="http://localhost:8080" method="get">
+					<input type="text"  id = "QueryInput" name="keywords" id = "queryInput">
+					<input type="submit" name="submit" value="Search">
+				</form>					
+			</div>   
+		</div>
+	</div>
 
 
+	<!-- Results-->
 		<h1> Search for "{{keywords}}" </h1>
 		<table id = "results">
+
+			<!-- Commented out for lab3
 			<tr>
 				<td><b>Word <br> </b></td>
 				<td><b>Count</b></td>
@@ -88,9 +102,22 @@
 				<td>{{currentWordList[word]}}</td>
 			</tr>
 			% end
+			-->
+
+			<!-- Printing result URLs on page-->
+			% for url in urlList:			
+			<tr>
+				<td> {{url}}</td>
+			</tr>
+			% end
 		</table>
 
-		<h2> Number of keywords are {{len(keywordList)}}</h2>
+		<button type="button" id = "previousButton"> See previous 5 URLs</button>
+		<button type="button" id = "nextButton"> See next 5 URLs </button>
+
+		<!-- Commented out for lab3
+			<h2> Number of keywords are {{len(keywordList)}}</h2>
+		-->
 
 
 
@@ -115,7 +142,6 @@
 		% end
 
 
-
 		% if loggedIn == 1:
 		<h1> Results for 10 most recent keywords</h1>
 			<table id = "history">
@@ -134,11 +160,12 @@
 		<br>
 		% end
 
-
 	</body>
-
 	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Custom JS-->
+	<script src="/javascript/index.js"></script>
 
 	<!-- Latest compiled Bootstrap JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

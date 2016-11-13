@@ -3,8 +3,12 @@
 #http://stackoverflow.com/questions/2720014/upgrading-all-packages-with-pip
 #http://www.whatisseolearning.com/wp-content/uploads/2015/11/se23.jpg
 
-from bottle import get, post, route, run, request, static_file, SimpleTemplate, template, redirect
+from bottle import get, post, route, run, request, static_file, SimpleTemplate, template, redirect, error, response
 import operator
+
+
+from bottle import response
+from json import dumps
 
 #------------------------------------------------------------------------------------------------------------
 					#-- Using beaker for sessions
@@ -18,6 +22,10 @@ session_opts = {
 }
 app = SessionMiddleware(bottle.app(), session_opts)
 
+
+
+#------------------------------------------------------------------------------------------------------------
+
 #------------------------------------------------------------------------------------------------------------
 
 '''My global nested dictionary to keep track of users and all words 
@@ -30,6 +38,10 @@ globalUserWordList = {}
 '''My global nested dictionary to keep track of users and list of most recent words
 '''
 globalUserRecentSearch = {}
+
+#dummy
+urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com"]
+
 
 #------------------------------------------------------------------------------------------------------------
 								#My routes
@@ -92,7 +104,7 @@ def sendIndexPage():
 	    #if user is not logged in, no need for search history
 	    if loggedIn == 0:
 	    	return template('results', loggedIn = loggedIn, currentWordList = currentWordList, 
-		    seen = seen, keywordList = keywordList, keywords = keywords)
+		    seen = seen, keywordList = keywordList, keywords = keywords, urlList= urlList[0:5])
 
 	    #user logged in so need search history for that specific user
 	    else:
@@ -136,6 +148,15 @@ def sendIndexPage():
 	    	picture = picture, fullName = fullName, currentWordList = currentWordList, 
 	    		seen = seen, top20List=top20List, keywordList = keywordList, 
 	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10])
+
+
+#------------------------------------------------------------------------------------------------------------
+							#------------Error pages---------
+
+@error(404)
+def error404(error):
+    return template('error')
+
 
 #------------------------------------------------------------------------------------------------------------
 							#------------Serving staic files from static folder---------
@@ -232,9 +253,19 @@ def logout():
 	session.delete()
 	redirect(str("/"))
 
-
 #------------------------------------------------------------------------------------------------------------
-
+@post('/getUrlsUsingIndex')
+def getUrlsUsingIndex():
+	index = request.forms.get('index')
+	print "Index is: ", index
+	start = index * 5
+	#use this http://stackoverflow.com/questions/12293979/how-do-i-return-a-json-array-with-bottle
+	#rv = urlList[start:start+5]
+	rv = [{ "id": 1, "name": "Test Item 1" }, { "id": 2, "name": "Test Item 2" }]
+	json.dumps(rv)
+	response.content_type = 'application/json'
+	return dumps(rv)
+#------------------------------------------------------------------------------------------------------------
 run(app=app, host='0.0.0.0', port=8080, debug=True, reloader=True)
 
 #------------------------------------------------------------------------------------------------------------

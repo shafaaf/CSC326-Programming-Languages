@@ -1,3 +1,9 @@
+/*
+
+id - #
+class - .
+*/
+
 h1{
 	text-align:center;
 }
@@ -26,4 +32,8 @@ h2{
 
 #mostRecent{
 	text-align: center;
+}
+
+#QueryInput{
+	width:50%;
 }

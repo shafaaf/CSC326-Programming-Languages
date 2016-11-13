@@ -84,9 +84,7 @@
 				<form  id = "queryForm" action="http://localhost:8080" method="get">
 					<input type="text"  name="keywords" id = "queryInput">
 					<input type="submit" name="submit" value="Search">
-				</form>		
-
-				
+				</form>					
 			</div>   
 		</div>
 	</div>
@@ -96,8 +94,6 @@
 
 <!-- ___________________________________________________________________________________________________________________________  -->
 															<!-- Scripts -->
-	<!-- Custom JS-->
-	<script src="/javascript/index.js"></script>
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
