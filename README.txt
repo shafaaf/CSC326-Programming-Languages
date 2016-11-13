@@ -1,6 +1,5 @@
+About search engine:
 a. EC2 hosting - HTTP
-
-b. We have set it up such that the user's email id, full name, and profile picture (default picture shown if not provided) can be displayed when clicking on view profile. Using Google+ API
 
 c. ab -n 100 -c 16 http://ec2-54-160-115-230.compute-1.amazonaws.com/?keywords=helloworld+foo+bar
 see RESULT file

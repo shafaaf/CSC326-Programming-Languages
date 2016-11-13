@@ -39,9 +39,8 @@ globalUserWordList = {}
 '''
 globalUserRecentSearch = {}
 
-#dummy
-urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com"]
-
+#Dummy
+urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com", "www.dfsd.com", "www.yutut.com", "d", "u"]
 
 #------------------------------------------------------------------------------------------------------------
 								#My routes
@@ -66,6 +65,7 @@ def sendIndexPage():
 	
 	#keywords is name of input field in search box
 	keywords = request.query.keywords
+	displayKeywords = keywords
 
 	#if no keywords passed in from form, them return normal home page
 	if not keywords:
@@ -148,7 +148,6 @@ def sendIndexPage():
 	    	picture = picture, fullName = fullName, currentWordList = currentWordList, 
 	    		seen = seen, top20List=top20List, keywordList = keywordList, 
 	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10])
-
 
 #------------------------------------------------------------------------------------------------------------
 							#------------Error pages---------
@@ -254,17 +253,22 @@ def logout():
 	redirect(str("/"))
 
 #------------------------------------------------------------------------------------------------------------
-@post('/getUrlsUsingIndex')
-def getUrlsUsingIndex():
-	index = request.forms.get('index')
-	print "Index is: ", index
-	start = index * 5
-	#use this http://stackoverflow.com/questions/12293979/how-do-i-return-a-json-array-with-bottle
-	#rv = urlList[start:start+5]
-	rv = [{ "id": 1, "name": "Test Item 1" }, { "id": 2, "name": "Test Item 2" }]
-	json.dumps(rv)
+					#------------Get prev/next results---------
+@post('/prevNext')
+def prevNext():
+	print "ds"
+	from json import dumps
+	newIndex = request.forms.get('index')
+	print "Got back index fro client: " + newIndex
+	newIndexInt = int(newIndex) * 5
+	print "newIndexInt is: ", newIndexInt
+	print "urlList is ", urlList
+	print "will send back: ", urlList[newIndexInt:newIndexInt+5]
+
+	#rv = [{ "id": 1, "name": "Test Item 1" }, { "id": 2, "name": "Test Item 2" }]
 	response.content_type = 'application/json'
-	return dumps(rv)
+	return dumps(urlList[newIndexInt:newIndexInt+5])
+
 #------------------------------------------------------------------------------------------------------------
 run(app=app, host='0.0.0.0', port=8080, debug=True, reloader=True)
 

@@ -21,8 +21,9 @@
 	% if loggedIn == 0:
 		<div class="container">
 			<div class="row" id = "modalRow">
-				<div class="col-md-4 col-md-offset-10">	
-					<a id = "signInBtn" class="btn btn-block btn-social btn-google" href = "/googleLogin">
+				<div class="col-md-4 col-md-offset-10">
+					<!-- Todo: Remove hidden style below-->
+					<a style = "visibility: hidden;" id = "signInBtn" class="btn btn-block btn-social btn-google" href = "/googleLogin">
 						<span class="fa fa-google"></span> Sign in
 					</a>
 				</div>
@@ -88,7 +89,7 @@
 
 
 	<!-- Results-->
-		<h1> Search for "{{keywords}}" </h1>
+		<h1 style = "margin-left:8%;"> Search for "{{keywords}}" </h1>
 		<table id = "results">
 
 			<!-- Commented out for lab3
@@ -107,13 +108,17 @@
 			<!-- Printing result URLs on page-->
 			% for url in urlList:			
 			<tr>
-				<td> {{url}}</td>
+				<td> <h3>{{url}}<h3></td>
 			</tr>
 			% end
 		</table>
 
-		<button type="button" id = "previousButton"> See previous 5 URLs</button>
-		<button type="button" id = "nextButton"> See next 5 URLs </button>
+		<div class="row">
+			<div class="col-md-5 col-md-offset-5">
+				<button type="button" id = "previousButton"> See previous 5 URLs</button>
+				<button type="button" id = "nextButton"> See next 5 URLs </button>
+			</div>
+		</div>		
 
 		<!-- Commented out for lab3
 			<h2> Number of keywords are {{len(keywordList)}}</h2>

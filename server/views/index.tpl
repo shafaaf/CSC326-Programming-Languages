@@ -23,8 +23,9 @@
 	% if loggedIn == 0:
 		<div class="container">
 			<div class="row" id = "modalRow">
-				<div class="col-md-4 col-md-offset-10">	
-					<a id = "signInBtn" class="btn btn-block btn-social btn-google" href = "/googleLogin">
+				<div class="col-md-4 col-md-offset-10">
+					<!-- Todo: Remove hidden style below-->
+					<a style = "visibility: hidden;" id = "signInBtn" class="btn btn-block btn-social btn-google" href = "/googleLogin">
 						<span class="fa fa-google"></span> Sign in
 					</a>
 				</div>
