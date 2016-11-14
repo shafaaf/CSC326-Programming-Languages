@@ -87,10 +87,9 @@
 		</div>
 	</div>
 
-
 	<!-- Results-->
 		<h1 style = "margin-left:8%;"> Search for "{{keywords}}" </h1>
-		<table id = "results">
+		<table id = "results" style = "text-align:center;">
 
 			<!-- Commented out for lab3
 			<tr>
@@ -108,7 +107,7 @@
 			<!-- Printing result URLs on page-->
 			% for url in urlList:			
 			<tr>
-				<td> <h3>{{url}}<h3></td>
+				<td> <p>{{url}}<p></td>
 			</tr>
 			% end
 		</table>

@@ -6,7 +6,6 @@
 from bottle import get, post, route, run, request, static_file, SimpleTemplate, template, redirect, error, response
 import operator
 
-
 from bottle import response
 from json import dumps
 
@@ -21,8 +20,6 @@ session_opts = {
     'session.auto': True
 }
 app = SessionMiddleware(bottle.app(), session_opts)
-
-
 
 #------------------------------------------------------------------------------------------------------------
 
@@ -39,8 +36,13 @@ globalUserWordList = {}
 '''
 globalUserRecentSearch = {}
 
-#Dummy
-urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com", "www.dfsd.com", "www.yutut.com", "d", "u"]
+
+import sys
+
+from getresults import *
+#urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com", "www.dfsd.com", "www.yutut.com", "d", "u"]
+urlList = []
+
 
 #------------------------------------------------------------------------------------------------------------
 								#My routes
@@ -63,6 +65,8 @@ def sendIndexPage():
 	else:
 		loggedIn = 0		
 	
+	
+
 	#keywords is name of input field in search box
 	keywords = request.query.keywords
 	displayKeywords = keywords
@@ -75,6 +79,7 @@ def sendIndexPage():
 		else:
 			return template('index', loggedIn = loggedIn)
 
+	
 	#Else show results of query
 	else:
 
@@ -83,6 +88,11 @@ def sendIndexPage():
 	    keywordList = keywords.strip()
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
+
+	    global urlList
+	    urlList = getResults("dbFile.db", keywordList[0])
+	    print "urlList is now: ", urlList
+
 	    #currentWordList is a dict used for only this current search search
 	    currentWordList = {}
 	    for word in keywordList:
@@ -108,7 +118,6 @@ def sendIndexPage():
 
 	    #user logged in so need search history for that specific user
 	    else:
-
 	    #making search history for loggedin user
 		for word in keywordList:
 			if word in globalUserWordList[email]:
@@ -116,6 +125,7 @@ def sendIndexPage():
 			else:
 				globalUserWordList[email][word] = 1
 
+		print "should not come here"
 	    print "main.py: globalUserWordList is ", globalUserWordList
 	    print "server.py: globalUserWordList[email] is ", globalUserWordList[email]
 
@@ -259,9 +269,10 @@ def prevNext():
 	print "ds"
 	from json import dumps
 	newIndex = request.forms.get('index')
-	print "Got back index fro client: " + newIndex
+	print "Got back index from client: " + newIndex
 	newIndexInt = int(newIndex) * 5
 	print "newIndexInt is: ", newIndexInt
+	global urlList
 	print "urlList is ", urlList
 	print "will send back: ", urlList[newIndexInt:newIndexInt+5]
 

@@ -1,3 +1,8 @@
+Why lab 3 slower than lab 2:
+This is because more I/O is being done in this lab which is very expensive. In lab2, all the data was 
+in memory and so it was much faster to access. Here we have a sqlite3 database and so there are more read operations\
+from there rather than from memory. Therefore this lab's results show that it is much slower.
+
 Benchmarking Statistics
 
 —————————————————————————————————————————————

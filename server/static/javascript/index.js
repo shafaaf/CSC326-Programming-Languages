@@ -37,7 +37,7 @@ $(document).ready(function(){
             		for (var item in data)
 					{
 						console.log("item is ", data[item]);
-						$("#results").append('<tr> <td><h3>'+data[item]+'</h3></td></tr>');
+						$("#results").append('<tr> <td><p>'+data[item]+'</p></td></tr>');
 	            	}
 	            	return;
 	            }	
@@ -73,7 +73,7 @@ $(document).ready(function(){
         		for (var item in data)
 				{
 					console.log("item is ", data[item]);
-					$("#results").append('<tr> <td><h3>'+data[item]+'</h3></td></tr>');
+					$("#results").append('<tr> <td><p>'+data[item]+'</p></td></tr>');
             	}
             	return;
             }
