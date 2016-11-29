@@ -22,7 +22,7 @@ session_opts = {
 app = SessionMiddleware(bottle.app(), session_opts)
 
 #------------------------------------------------------------------------------------------------------------
-
+					#-- Global variables to keep track of stuff
 '''My global nested dictionary to keep track of users and all words 
 	to their occurances. Use like this:
 		globalUserWordList['shafaaf'] = {}
@@ -35,7 +35,7 @@ globalUserWordList = {}
 globalUserRecentSearch = {}
 
 #------------------------------------------------------------------------------------------------------------
-# Get stuff from database
+					#-- Get stuff from database
 
 import sys
 
@@ -44,19 +44,23 @@ from getresults import *
 urlList = []
 
 #------------------------------------------------------------------------------------------------------------
-								#My routes
+					#-- My routes
+
 @get('/')
 def sendIndexPage():
 	session = request.environ.get('beaker.session')
+
 	#checking if user is logged in, set him up
 	if 'email' in session:
 		email = session['email']
 		picture = session['picture']
 		fullName = session['name']
 		loggedIn = 1
+
 		#make new dictionary of search history words for user if first time
 		if email not in globalUserWordList:
 			globalUserWordList[email] = {}		
+
 		#make new list (use like stack) of recent search words for user if first time
 		if email not in globalUserRecentSearch:
 			globalUserRecentSearch[email] = []	
@@ -76,7 +80,6 @@ def sendIndexPage():
 				picture = picture, fullName = fullName)
 		else:
 			return template('index', loggedIn = loggedIn)
-
 	
 	#Else show results of query
 	else:
@@ -156,7 +159,7 @@ def sendIndexPage():
 	    return template('results', loggedIn = loggedIn, email = email, 
 	    	picture = picture, fullName = fullName, currentWordList = currentWordList, 
 	    		seen = seen, top20List=top20List, keywordList = keywordList, 
-	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10])
+	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10], urlList= urlList[0:5])
 
 #------------------------------------------------------------------------------------------------------------
 							#------------Error pages---------
