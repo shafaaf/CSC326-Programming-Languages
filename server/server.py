@@ -23,8 +23,6 @@ app = SessionMiddleware(bottle.app(), session_opts)
 
 #------------------------------------------------------------------------------------------------------------
 
-#------------------------------------------------------------------------------------------------------------
-
 '''My global nested dictionary to keep track of users and all words 
 	to their occurances. Use like this:
 		globalUserWordList['shafaaf'] = {}
@@ -36,13 +34,14 @@ globalUserWordList = {}
 '''
 globalUserRecentSearch = {}
 
+#------------------------------------------------------------------------------------------------------------
+# Get stuff from database
 
 import sys
 
 from getresults import *
 #urlList = ["www.google.com", "www.facebook.com", "www.hotmail.com", "www.bing.com", "www.yahoo.com", "www.amazon.com", "www.microsoft.com", "www.dfsd.com", "www.yutut.com", "d", "u"]
 urlList = []
-
 
 #------------------------------------------------------------------------------------------------------------
 								#My routes
@@ -64,7 +63,6 @@ def sendIndexPage():
 
 	else:
 		loggedIn = 0		
-	
 	
 
 	#keywords is name of input field in search box
@@ -89,11 +87,12 @@ def sendIndexPage():
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
 
+	    #Database stuff
 	    global urlList
 	    urlList = getResults("dbFile.db", keywordList[0])
 	    print "urlList is now: ", urlList
 
-	    #currentWordList is a dict used for only this current search search
+	    #currentWordList is a dict used for only this current search
 	    currentWordList = {}
 	    for word in keywordList:
 			if word in currentWordList:
