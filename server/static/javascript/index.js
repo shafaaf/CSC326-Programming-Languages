@@ -29,15 +29,13 @@ $(document).ready(function(){
             	//Data not empty
             	else
             	{
-            		console.log("data is not empty");
-
+            		console.log("data is not empty!!!!");
             		//remove all past entries
             		$( "#results" ).empty();
-
             		for (var item in data)
 					{
 						console.log("item is ", data[item]);
-						$("#results").append('<tr> <td><p>'+data[item]+'</p></td></tr>');
+						$("#results").append('<tr><td><p>'+data[item]+'</p></td></tr>');
 	            	}
 	            	return;
 	            }	

@@ -1,3 +1,5 @@
+									<!-- Landing home page -->
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,8 +17,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 	</head>
 
-<!-- ___________________________________________________________________________________________________________________________  -->
-															<!-- Main Body -->
+<!-- ____________________________________________________________________________________________________________________  -->
+									<!-- Main Body -->
 	<body>
 
 	<!--  If not loggedin, show login with google-->
@@ -31,10 +33,11 @@
 				</div>
 			</div>
 		</div>			
-	% end	
+	% end
 
+<!-- _______________________________________________-->
 		
-	<!--  If loggedin, show profile-->
+	<!--  If loggedin, show profile in modal-->
 	% if loggedIn == 1:
 		<div class="container">
 			<div class="row" id = "modalRow">
@@ -76,7 +79,10 @@
 			</div> 		  
 		</div>
 	% end	
-		
+	
+<!-- _______________________________________________-->
+
+	<!-- Logo with input box-->
 	<div class="container">
 		<div class="row" id = "searchRow"> <!-- Put here to move whole body around-->
 			<div class="col-md-4 col-md-offset-4">
@@ -94,14 +100,13 @@
 	</body>
 
 <!-- ___________________________________________________________________________________________________________________________  -->
-															<!-- Scripts -->
+								<!-- Scripts -->
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 	<!-- Latest compiled Bootstrap JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 
 </html>
 

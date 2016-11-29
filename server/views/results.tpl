@@ -1,3 +1,5 @@
+<!-- Landing home page -->
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,9 +17,11 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 	</head>
 
+<!-- ____________________________________________________________________________________________________________________  -->
+									<!-- Main Body -->
 	<body>
 
-		<!--  If not loggedin, show login with google-->
+	<!--  If not loggedin, show login with google-->
 	% if loggedIn == 0:
 		<div class="container">
 			<div class="row" id = "modalRow">
@@ -31,8 +35,9 @@
 		</div>			
 	% end
 
+<!-- _______________________________________________-->
 
-	<!--  If loggedin, show profile-->
+	<!--  If loggedin, show profile in modal -->
 	% if loggedIn == 1:
 		<div class="container">
 			<div class="row" id = "modalRow">
@@ -42,8 +47,6 @@
 					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">See Profile</button>
 					<a href= "/logout" class="btn btn-info" role="button">Log out
 					</a>
-
-
 					  
 					  <!-- Modal -->
 					  <div class="modal fade" id="myModal" role="dialog">
@@ -74,8 +77,9 @@
 		</div>
 	% end
 
+<!-- _______________________________________________-->
 
-	<!-- Query form-->
+	<!-- Query form in the result page to search again-->
 	<div class="container">
 		<div class="row" id = ""> <!-- Put here to move whole body around-->
 			<div class="col-md-offset-4 col-md-8">				
@@ -87,11 +91,15 @@
 		</div>
 	</div>
 
-	<!-- Results-->
-		<h1 style = "margin-left:8%;"> Search for "{{keywords}}" </h1>
-		<table id = "results" style = "text-align:center;">
+<!-- _______________________________________________-->
 
-			<!-- Commented out for lab3
+	<!-- Results for search in the form if urls. Todo: fix CSS here-->
+	<div class = "container" style = "text-align:center;">
+		<h1> Search for "{{keywords}}" </h1>
+
+		<!-- Printing result URLs on a table-->
+		<table id = "results">
+			<!-- Commented out for lab3 - unsure if needed or not
 			<tr>
 				<td><b>Word <br> </b></td>
 				<td><b>Count</b></td>
@@ -102,33 +110,28 @@
 				<td>{{currentWordList[word]}}</td>
 			</tr>
 			% end
-			-->
-
-			<!-- Printing result URLs on page-->
+			-->			
 			% for url in urlList:			
 			<tr>
-				<td> <p>{{url}}<p></td>
+				<td><p>{{url}}<p><td>
 			</tr>
 			% end
 		</table>
 
-		<div class="row">
-			<div class="col-md-5 col-md-offset-5">
-				<button type="button" id = "previousButton"> See previous 5 URLs</button>
-				<button type="button" id = "nextButton"> See next 5 URLs </button>
-			</div>
-		</div>		
+		<!-- Previous and next buttons to go to previous and next pages-->
+		<button type="button" id = "previousButton"> See previous 5 URLs</button>
+		<button type="button" id = "nextButton"> See next 5 URLs </button>
+	</div>
 
-		<!-- Commented out for lab3
-			<h2> Number of keywords are {{len(keywordList)}}</h2>
-		-->
+<!-- _______________________________________________-->
 
-
-
-
+	<!-- Commented out for lab3
+		<h2> Number of keywords are {{len(keywordList)}}</h2>
+	-->
 <!-- __________________________________________________________________________________________  -->
 		<br>
 
+		<!-- History summary of the user's searches. Todo: May move this to modal section-->
 		% if loggedIn == 1:
 		<h1> Results for top 20 most searched keywords</h1>
 			<table id = "history">
@@ -163,6 +166,8 @@
 		
 		<br>
 		% end
+
+<!-- ____________________________________________________________________________________________________________________  -->
 
 	</body>
 	<!-- jQuery library -->
