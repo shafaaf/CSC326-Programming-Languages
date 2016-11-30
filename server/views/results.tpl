@@ -134,8 +134,8 @@
 	<!-- Results for search in the form if urls. Todo: fix CSS here-->		
 
 		<!-- Printing result URLs on a table-->
-		
-			<table id = "results" style = "margin: 0 auto;" position = "fixed">
+		<div class = "container" style = "text-align: center; ">
+			<table id = "results" style = "margin: 0 auto;">
 				<!-- Commented out for lab3 - unsure if needed or not
 				<tr>
 					<td><b>Word <br> </b></td>
@@ -154,7 +154,7 @@
 					</tr>
 				% end
 			</table>
-				
+		</div>		
 
 
 	<div class = "container" style = "text-align:center; margin-bottom:5%;">
