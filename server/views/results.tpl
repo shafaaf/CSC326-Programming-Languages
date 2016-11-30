@@ -65,6 +65,53 @@
 					        	<p> Email: {{email}}</p>
 					        	<img id = "profilePicture" src = "{{picture}}">	
 					        </div>
+
+
+					        <!-- History summary of the user's searches. Todo: May move this to modal section-->
+							
+
+							
+							<h3 style = "text-align:center"> Results for top 20 most searched keywords</h3>
+								<table id = "history" style = "text-align:center">
+									<tr>
+										<td><b>Word <br> </b></td>
+										<td><b>Count</b></td>
+									</tr>
+									% for i, (a, b) in enumerate(top20List):
+									<tr>
+										<td> {{a}} <br></td>
+										<td>{{b}} </td>
+									</tr>
+									% end
+								</table>
+						
+
+						
+
+
+						
+							<h3 style = "text-align:center"> Results for 10 most recent keywords</h3>
+								<table id = "history" style = "text-align:center">
+									<tr>
+										<td><b> Word <br></b></td>
+										<td><b>Rank</b></td>
+									</tr>
+									% for i, val in enumerate(mostRecentlySearched):
+									<tr>
+										<td>{{val}}</td>
+										<td>{{i+1}}</td>
+									</tr>
+									% end
+								</table>
+							
+							
+							<br>
+							
+
+
+
+
+
 					        <div class="modal-footer">
 					          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					        </div>
@@ -114,12 +161,12 @@
 			-->			
 			% for url in urlList:			
 				<tr>
-					<td><p>{{url}}</td></p>
+					<td><p>{{url}}</p></td>
 				</tr>
 			% end
 		</table>
 
-		<div class = "container" style = "text-align:center;">
+		<div class = "container" style = "text-align:center; margin-bottom:5%;">
 			<!-- Previous and next buttons to go to previous and next pages-->
 			<button type="button" id = "previousButton"> See previous 5 URLs</button>
 			<button type="button" id = "nextButton"> See next 5 URLs </button>
@@ -134,41 +181,7 @@
 <!-- __________________________________________________________________________________________  -->
 		<br>
 
-		<!-- History summary of the user's searches. Todo: May move this to modal section-->
-		% if loggedIn == 1:
-		<h1> Results for top 20 most searched keywords</h1>
-			<table id = "history">
-				<tr>
-					<td><b>Word <br> </b></td>
-					<td><b>Count</b></td>
-				</tr>
-				% for i, (a, b) in enumerate(top20List):
-				<tr>
-					<td> {{a}} <br></td>
-					<td>{{b}} </td>
-				</tr>
-				% end
-			</table>
-		% end
-
-
-		% if loggedIn == 1:
-		<h1> Results for 10 most recent keywords</h1>
-			<table id = "history">
-				<tr>
-					<td><b> Word <br></b></td>
-					<td><b>Rank</b></td>
-				</tr>
-				% for i, val in enumerate(mostRecentlySearched):
-				<tr>
-					<td>{{val}}</td>
-					<td>{{i+1}}</td>
-				</tr>
-				% end
-			</table>
 		
-		<br>
-		% end
 
 <!-- ____________________________________________________________________________________________________________________  -->
 
