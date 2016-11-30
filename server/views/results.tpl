@@ -65,59 +65,48 @@
 					        	<p> Email: {{email}}</p>
 					        	<img id = "profilePicture" src = "{{picture}}">	
 					        </div>
-
+<!-- _______________________________________________-->
 
 					        <!-- History summary of the user's searches. Todo: May move this to modal section-->
-							
-
-							
 							<h3 style = "text-align:center"> Results for top 20 most searched keywords</h3>
-								<table id = "history" style = "text-align:center">
-									<tr>
-										<td><b>Word <br> </b></td>
-										<td><b>Count</b></td>
-									</tr>
-									% for i, (a, b) in enumerate(top20List):
-									<tr>
-										<td> {{a}} <br></td>
-										<td>{{b}} </td>
-									</tr>
-									% end
-								</table>
-						
-
-						
-
-
+							<table id = "history" style = "text-align:center">
+								<tr>
+									<td><b>Word <br> </b></td>
+									<td><b>Count</b></td>
+								</tr>
+								% for i, (a, b) in enumerate(top20List):
+								<tr>
+									<td> {{a}} <br></td>
+									<td>{{b}} </td>
+								</tr>
+								% end
+							</table>						
 						
 							<h3 style = "text-align:center"> Results for 10 most recent keywords</h3>
-								<table id = "history" style = "text-align:center">
-									<tr>
-										<td><b> Word <br></b></td>
-										<td><b>Rank</b></td>
-									</tr>
-									% for i, val in enumerate(mostRecentlySearched):
-									<tr>
-										<td>{{val}}</td>
-										<td>{{i+1}}</td>
-									</tr>
-									% end
-								</table>
-							
+							<table id = "history" style = "text-align:center">
+								<tr>
+									<td><b> Word <br></b></td>
+									<td><b>Rank</b></td>
+								</tr>
+								% for i, val in enumerate(mostRecentlySearched):
+								<tr>
+									<td>{{val}}</td>
+									<td>{{i+1}}</td>
+								</tr>
+								% end
+							</table>
+<!-- _______________________________________________-->
 							
 							<br>
-							
 
-
-
-
-
-					        <div class="modal-footer">
+							<div class="modal-footer">
 					          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					        </div>
+
 					      </div>
-					      
+	  
 					    </div>
+
 					  </div>					  
 				</div>	  
 			</div> 		  
@@ -190,7 +179,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	<!-- Custom JS-->
-	<script src="/javascript/index.js"></script>
+	<script src="/javascript/results.js"></script>
 
 	<!-- Latest compiled Bootstrap JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
