@@ -36,7 +36,6 @@ globalUserRecentSearch = {}
 
 #------------------------------------------------------------------------------------------------------------
 					#-- Get stuff from database
-
 import sys
 
 from getresults import *

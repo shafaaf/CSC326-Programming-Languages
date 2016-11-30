@@ -93,12 +93,13 @@
 
 <!-- _______________________________________________-->
 
-	<!-- Results for search in the form if urls. Todo: fix CSS here-->
-	<div class = "container" style = "text-align:center;">
-		<h1> Search for "{{keywords}}" </h1>
+
+	<h1> Search for "{{keywords}}" </h1>
+
+	<!-- Results for search in the form if urls. Todo: fix CSS here-->		
 
 		<!-- Printing result URLs on a table-->
-		<table id = "results">
+		<table id = "results" align="center"  style = "margin:auto;">
 			<!-- Commented out for lab3 - unsure if needed or not
 			<tr>
 				<td><b>Word <br> </b></td>
@@ -112,16 +113,18 @@
 			% end
 			-->			
 			% for url in urlList:			
-			<tr>
-				<td><p>{{url}}<p><td>
-			</tr>
+				<tr>
+					<td><p>{{url}}</td></p>
+				</tr>
 			% end
 		</table>
 
-		<!-- Previous and next buttons to go to previous and next pages-->
-		<button type="button" id = "previousButton"> See previous 5 URLs</button>
-		<button type="button" id = "nextButton"> See next 5 URLs </button>
-	</div>
+		<div class = "container" style = "text-align:center;">
+			<!-- Previous and next buttons to go to previous and next pages-->
+			<button type="button" id = "previousButton"> See previous 5 URLs</button>
+			<button type="button" id = "nextButton"> See next 5 URLs </button>
+		</div>
+	
 
 <!-- _______________________________________________-->
 
