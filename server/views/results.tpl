@@ -41,7 +41,7 @@
 	% if loggedIn == 1:
 		<div class="container">
 			<div class="row" id = "modalRow">
-				<div class="col-md-4 col-md-offset-10">
+				<div class="col-md-4 col-md-offset-10 col-sm-4 col-sm-offset-8 col-xs-8 col-xs-offset-5">
 					<h4>{{email}}</h4>
 					<!-- Trigger the modal with a button -->
 					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">See Profile</button>
@@ -116,9 +116,9 @@
 <!-- _______________________________________________-->
 
 	<!-- Query form in the result page to search again-->
-	<div class="container">
+	<div class="container" style = "margin-top:2%;">
 		<div class="row" id = ""> <!-- Put here to move whole body around-->
-			<div class="col-md-8 col-md-offset-2 col-sm-8 col-xs-8 col-xs-offset-2">				
+			<div class="col-md-7 col-md-offset-2 col-sm-8 col-xs-8 col-xs-offset-2">				
 				<form action="http://localhost:8080" method="get" style="width: 200%">
 					<input type="text"  id = "QueryInput" name="keywords" id = "queryInput">
 					<input type="submit" name="submit" value="Search">
