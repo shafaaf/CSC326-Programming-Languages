@@ -131,37 +131,38 @@
 
 
 	<h1> Search for "{{keywords}}" </h1>
-
 	<!-- Results for search in the form if urls. Todo: fix CSS here-->		
 
 		<!-- Printing result URLs on a table-->
-		<table id = "results" align="center"  style = "margin:auto;">
-			<!-- Commented out for lab3 - unsure if needed or not
-			<tr>
-				<td><b>Word <br> </b></td>
-				<td><b>Count</b></td>
-			</tr>
-			% for word in seen:
-			<tr>
-				<td> {{word}}</td>
-				<td>{{currentWordList[word]}}</td>
-			</tr>
-			% end
-			-->			
-			% for url in urlList:			
+		
+			<table id = "results" style = "margin: 0 auto;" position = "fixed">
+				<!-- Commented out for lab3 - unsure if needed or not
 				<tr>
-					<td><p>{{url}}</p></td>
+					<td><b>Word <br> </b></td>
+					<td><b>Count</b></td>
 				</tr>
-			% end
-		</table>
+				% for word in seen:
+				<tr>
+					<td> {{word}}</td>
+					<td>{{currentWordList[word]}}</td>
+				</tr>
+				% end
+				-->			
+				% for url in urlList:			
+					<tr>
+						<td><p>{{url}}</p></td>
+					</tr>
+				% end
+			</table>
+				
 
-		<div class = "container" style = "text-align:center; margin-bottom:5%;">
-			<!-- Previous and next buttons to go to previous and next pages-->
-			<button type="button" id = "previousButton"> See previous 5 URLs</button>
-			<button type="button" id = "nextButton"> See next 5 URLs </button>
-		</div>
+
+	<div class = "container" style = "text-align:center; margin-bottom:5%;">
+		<!-- Previous and next buttons to go to previous and next pages-->
+		<button type="button" id = "previousButton"> See previous 5 URLs</button>
+		<button type="button" id = "nextButton"> See next 5 URLs </button>
+	</div>
 	
-
 <!-- _______________________________________________-->
 
 	<!-- Commented out for lab3
@@ -169,8 +170,6 @@
 	-->
 <!-- __________________________________________________________________________________________  -->
 		<br>
-
-		
 
 <!-- ____________________________________________________________________________________________________________________  -->
 
