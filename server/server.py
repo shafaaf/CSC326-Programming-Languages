@@ -89,6 +89,25 @@ def sendIndexPage():
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
 
+
+
+#---------------------Todo: Math: Need try/catch proper---------------------------
+	    if ('+' in keywords) or ('-' in keywords) or ('*' in keywords) or ('/' in keywords) or ('**' in keywords) or ('^' in keywords):
+    		print "orrrei found math"
+    		
+    		mathsSolution =  eval(keywords)
+    		print mathsSolution
+
+    		if loggedIn == 0:
+				return template('mathResults', loggedIn = loggedIn, 
+					keywordList = keywordList, keywords = keywords, mathsSolution = mathsSolution)
+
+    		else:
+				return template('mathResults', loggedIn = loggedIn, email = email, 
+					picture = picture, fullName = fullName, keywordList = keywordList, 
+	    			keywords = keywords, mathsSolution = mathsSolution)
+			
+
         #------------------Auto correction-----------------------
 	    from autocorrect import spell
 	    #print spell('toRontw')
@@ -105,22 +124,6 @@ def sendIndexPage():
 	    	err.replace(correctWord)
 	    fullCorrectedSentence = chkr.get_text()
 	    print "overall: {}".format(fullCorrectedSentence)
-
-
-	    #---------------------Math---------------------------
-	    if ('+' in keywords) or ('-' in keywords) or ('*' in keywords) or ('/' in keywords) or ('**' in keywords) or ('^' in keywords):
-    		print "orrrei found math"
-    		mathsSolution =  eval(keywords)
-    		print mathsSolution
-
-    		if loggedIn == 0:
-				return template('mathResults', loggedIn = loggedIn, 
-					keywordList = keywordList, keywords = keywords, mathsSolution = mathsSolution)
-
-    		else:
-				return template('mathResults', loggedIn = loggedIn, email = email, 
-					picture = picture, fullName = fullName, keywordList = keywordList, 
-	    			keywords = keywords, mathsSolution = mathsSolution)
 
 	    #---------------------------------------------------------
 	    #Database stuff
