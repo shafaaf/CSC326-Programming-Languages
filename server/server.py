@@ -89,10 +89,26 @@ def sendIndexPage():
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
 
+        #------------------Auto correction-----------------------
+	    from autocorrect import spell
+	    #print spell('toRontw')
+	    from enchant.checker import SpellChecker
+	    print "keywords: {}".format(keywords)
+	    text = keywords
+	    #fullCorrectedSentence = ""
+	    chkr = SpellChecker("en_US",text)
+	    for err in chkr:
+	    	print "err.word is {}".format(err.word)
+	    	correctWord = spell(err.word)
+	    	err.replace(correctWord)
+	    	fullCorrectedSentence = chkr.get_text()
+	    	print "overall: {}".format(fullCorrectedSentence)
+	    #---------------------------------------------------------
+
 	    #Database stuff
 	    global urlList
 	    urlList = getResults("dbFile.db", keywordList[0])
-	    print "urlList is now: ", urlList
+	    #print "urlList is now: ", urlList
 
 	    #currentWordList is a dict used for only this current search
 	    currentWordList = {}
@@ -115,7 +131,8 @@ def sendIndexPage():
 	    #if user is not logged in, no need for search history
 	    if loggedIn == 0:
 	    	return template('results', loggedIn = loggedIn, currentWordList = currentWordList, 
-		    seen = seen, keywordList = keywordList, keywords = keywords, urlList= urlList[0:5])
+		    seen = seen, keywordList = keywordList, keywords = keywords, 
+		    fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
 
 	    #user logged in so need search history for that specific user
 	    else:
@@ -158,7 +175,8 @@ def sendIndexPage():
 	    return template('results', loggedIn = loggedIn, email = email, 
 	    	picture = picture, fullName = fullName, currentWordList = currentWordList, 
 	    		seen = seen, top20List=top20List, keywordList = keywordList, 
-	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10], urlList= urlList[0:5])
+	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10], 
+	    				fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
 
 #------------------------------------------------------------------------------------------------------------
 							#------------Error pages---------
@@ -280,6 +298,7 @@ def prevNext():
 	#rv = [{ "id": 1, "name": "Test Item 1" }, { "id": 2, "name": "Test Item 2" }]
 	response.content_type = 'application/json'
 	return dumps(urlList[newIndexInt:newIndexInt+5])
+#------------------------------------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------------------------------------
 run(app=app, host='0.0.0.0', port=8080, debug=True, reloader=True)

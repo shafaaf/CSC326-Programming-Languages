@@ -38,3 +38,14 @@ h2{
 	width:50%;
 }
 
+/*from autocorrect import spell
+        print spell('toRontw')
+        from enchant.checker import SpellChecker
+        text = keywords
+        chkr = SpellChecker("en_US",text)
+        for err in chkr:
+			print "err.word is {}".format(err.word)
+			correctWord = spell(err.word)
+			err.replace(correctWord)
+			print chkr.get_text()
+*/

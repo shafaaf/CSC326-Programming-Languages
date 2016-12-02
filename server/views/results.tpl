@@ -128,13 +128,18 @@
 	</div>
 
 <!-- _______________________________________________-->
+	<div class = "container" id = "spellCorrector" style = "text-align: center; color: #0000FF;">
+		<h3 id = "didYouMean" style = "cursor: pointer;">Did you mean: "{{fullCorrectedSentence}}"</h3>
+	</div>			
+
+<!-- _______________________________________________-->
 
 
 	<h1> Search for "{{keywords}}" </h1>
 	<!-- Results for search in the form if urls. Todo: fix CSS here-->		
 
 		<!-- Printing result URLs on a table-->
-		<div class = "container" style = "text-align: center; ">
+		<div class = "container" id = "paraContainer" style = "text-align: center; ">
 			<table id = "results" style = "margin: 0 auto;">
 				<!-- Commented out for lab3 - unsure if needed or not
 				<tr>

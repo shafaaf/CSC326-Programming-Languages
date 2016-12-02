@@ -86,7 +86,8 @@
 	<div class="container">
 		<div class="row" id = "searchRow"> <!-- Put here to move whole body around-->
 			<div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-9 col-xs-offset-2">
-				<h1 id = "heading">Quest Engine</h1>
+				<!--<h1 id = "heading">Quest Engine</h1>-->
+				<img id = "doodleHeading" src = "/images/doodle.gif">
 				<img id = "logoImage" src = "/images/logo.png">
 				<form  id = "queryForm" action="http://localhost:8080" method="get">
 					<input type="text"  name="keywords" id = "queryInput" autocomplete="on">
