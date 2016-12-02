@@ -89,20 +89,22 @@ def sendIndexPage():
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
 
-        #------------------Auto correction-----------------------
+        #------------------Todo: Auto correction-----------------------
 	    from autocorrect import spell
 	    #print spell('toRontw')
 	    from enchant.checker import SpellChecker
 	    print "keywords: {}".format(keywords)
 	    text = keywords
+	    autoCorrectErrors = 0
 	    #fullCorrectedSentence = ""
 	    chkr = SpellChecker("en_US",text)
 	    for err in chkr:
+	    	autoCorrectErrors = 1
 	    	print "err.word is {}".format(err.word)
 	    	correctWord = spell(err.word)
 	    	err.replace(correctWord)
-	    	fullCorrectedSentence = chkr.get_text()
-	    	print "overall: {}".format(fullCorrectedSentence)
+	    fullCorrectedSentence = chkr.get_text()
+	    print "overall: {}".format(fullCorrectedSentence)
 	    #---------------------------------------------------------
 
 	    #Database stuff
@@ -132,7 +134,7 @@ def sendIndexPage():
 	    if loggedIn == 0:
 	    	return template('results', loggedIn = loggedIn, currentWordList = currentWordList, 
 		    seen = seen, keywordList = keywordList, keywords = keywords, 
-		    fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
+		    autoCorrectErrors = autoCorrectErrors, fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
 
 	    #user logged in so need search history for that specific user
 	    else:
@@ -176,7 +178,7 @@ def sendIndexPage():
 	    	picture = picture, fullName = fullName, currentWordList = currentWordList, 
 	    		seen = seen, top20List=top20List, keywordList = keywordList, 
 	    			keywords = keywords, mostRecentlySearched = globalUserRecentSearch[email][:10], 
-	    				fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
+	    				autoCorrectErrors = autoCorrectErrors, fullCorrectedSentence = fullCorrectedSentence, urlList= urlList[0:5])
 
 #------------------------------------------------------------------------------------------------------------
 							#------------Error pages---------

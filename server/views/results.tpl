@@ -127,11 +127,23 @@
 		</div>
 	</div>
 
-<!-- _______________________________________________-->
-	<div class = "container" id = "spellCorrector" style = "text-align: center; color: #0000FF;">
-		<h3 id = "didYouMean" style = "cursor: pointer;">Did you mean: "{{fullCorrectedSentence}}"</h3>
-	</div>			
+<!-- _____________Did you mean - Spell corrector div___________________________-->
+	
+	<!-- For debugging errors:
+	% if autoCorrectErrors == 0:
+		<p> No Errors</p>
+	% end
+	-->
 
+	% if autoCorrectErrors == 1:
+		<div class = "container" id = "spellCorrector" style = "text-align: center; color: #0000FF;">	
+		<form action="/" method="get">
+	  		<button type="submit" name = "keywords" value = "{{fullCorrectedSentence}}" class="btn-link">Did you mean: "{{fullCorrectedSentence}}"</button>
+		</form>
+	</div>		
+	% end
+
+		
 <!-- _______________________________________________-->
 
 
