@@ -89,7 +89,7 @@ def sendIndexPage():
 	    #This puts keywords into array
 	    keywordList = keywordList.lower().split()
 
-        #------------------Todo: Auto correction-----------------------
+        #------------------Auto correction-----------------------
 	    from autocorrect import spell
 	    #print spell('toRontw')
 	    from enchant.checker import SpellChecker
@@ -105,8 +105,24 @@ def sendIndexPage():
 	    	err.replace(correctWord)
 	    fullCorrectedSentence = chkr.get_text()
 	    print "overall: {}".format(fullCorrectedSentence)
-	    #---------------------------------------------------------
 
+
+	    #---------------------Math---------------------------
+	    if ('+' in keywords) or ('-' in keywords) or ('*' in keywords) or ('/' in keywords) or ('**' in keywords) or ('^' in keywords):
+    		print "orrrei found math"
+    		mathsSolution =  eval(keywords)
+    		print mathsSolution
+
+    		if loggedIn == 0:
+				return template('mathResults', loggedIn = loggedIn, 
+					keywordList = keywordList, keywords = keywords, mathsSolution = mathsSolution)
+
+    		else:
+				return template('mathResults', loggedIn = loggedIn, email = email, 
+					picture = picture, fullName = fullName, keywordList = keywordList, 
+	    			keywords = keywords, mathsSolution = mathsSolution)
+
+	    #---------------------------------------------------------
 	    #Database stuff
 	    global urlList
 	    urlList = getResults("dbFile.db", keywordList[0])
@@ -116,7 +132,7 @@ def sendIndexPage():
 	    currentWordList = {}
 	    for word in keywordList:
 			if word in currentWordList:
-				currentWordList[word]  = currentWordList[word] + 1;
+				currentWordList[word]  = currentWordList[word] + 1
 			else:
 			    currentWordList[word] = 1;    
 	    print "main.py: currentWordList is ", currentWordList
@@ -306,4 +322,3 @@ def prevNext():
 run(app=app, host='0.0.0.0', port=8080, debug=True, reloader=True)
 
 #------------------------------------------------------------------------------------------------------------
-
