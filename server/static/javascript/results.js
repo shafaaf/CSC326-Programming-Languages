@@ -32,10 +32,20 @@ $(document).ready(function(){
             		console.log("data is not empty!!!!");
             		//remove all past entries
             		$( "#results" ).empty();
+
+                    //data = [url[0:50]+'...' if len(url) > 50 else url for url in data]
+
+                    //shorten url lengths
+                    /*for(url in data)
+                    {
+                        if(url.length > 50)
+                            url = url.substring(0,50) + "...";
+                    }*/
+
             		for (var item in data)
 					{
 						console.log("item is ", data[item]);
-						$("#results").append('<tr><td><p>'+data[item]+'</p></td></tr>');
+                        $("#results").append('<tr><td><a href = '+ data[item] + '><p>' + data[item] + '</p></a></td></tr>');   
 	            	}
 	            	return;
 	            }	
@@ -68,10 +78,19 @@ $(document).ready(function(){
             	//remove all past entries
         		$( "#results" ).empty();
 
-        		for (var item in data)
+                //data = [url[0:50]+'...' if len(url) > 50 else url for url in data]
+        		
+                //shorten url lengths
+                /*for(url in data)
+                {
+                    if(url.length > 50)
+                        url = url.substring(0,50) + "...";
+                }*/
+
+                for (var item in data)
 				{
 					console.log("item is ", data[item]);
-					$("#results").append('<tr> <td><p>'+data[item]+'</p></td></tr>');
+					$("#results").append('<tr><td><a href = '+ data[item] + '><p>' + data[item] + '</p></a></td></tr>');
             	}
             	return;
             }

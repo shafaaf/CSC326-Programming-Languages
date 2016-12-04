@@ -45,7 +45,6 @@ def getResults(db_file, searchWord):
     return urlList
 
 
-
 if __name__ == "__main__":
     wordToSearch = "department"
     print getResults("dbFile.db", wordToSearch)

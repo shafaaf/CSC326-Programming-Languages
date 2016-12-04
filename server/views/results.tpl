@@ -127,7 +127,7 @@
 		</div>
 	</div>
 
-<!-- _____________Did you mean - Spell corrector div___________________________-->
+<!-- _____Spell corrector div: "Did you mean ..." _____-->
 	
 	<!-- For debugging errors:
 	% if autoCorrectErrors == 0:
@@ -144,8 +144,7 @@
 	% end
 
 		
-<!-- _______________________________________________-->
-
+<!-- ______________Search results____________________-->
 
 	<h1> Search for "{{keywords}}" </h1>
 	<!-- Results for search in the form if urls. Todo: fix CSS here-->		
@@ -165,9 +164,11 @@
 				</tr>
 				% end
 				-->			
-				% for url in urlList:			
+				% for url, shorturl in zip(urlList, shortenedUrlList):			
 					<tr>
-						<td><p>{{url}}</p></td>
+						<td>
+							<p><a href = {{url}}>{{shorturl}}</a></p>
+						</td>
 					</tr>
 				% end
 			</table>

@@ -16,6 +16,7 @@ numpy==1.11.2
 oauth2client==4.0.0
 pyasn1==0.1.9
 pyasn1-modules==0.0.8
+pyenchant==1.6.8
 python-dateutil==2.5.3
 rsa==3.4.2
 s3transfer==0.1.9
