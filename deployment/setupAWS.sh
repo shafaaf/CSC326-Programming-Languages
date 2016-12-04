@@ -34,8 +34,8 @@ sudo pip install -r requirements.txt
 cd server
 
 printf "\nsetupAWS.sh: Running redis-server..."
-sudo redis-server&
+nohup sudo redis-server&
 
-sudo python server.py
+nohup sudo python server.py&
 printf "\nsetupAWS.sh: Running python web server..."
 
