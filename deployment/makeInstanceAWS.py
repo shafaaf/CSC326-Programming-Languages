@@ -5,7 +5,7 @@ import subprocess
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-key_pair_name = 'key_pair_test'
+key_pair_name = 'key_pair_test2'
 
 def create():
 	print "create:"
@@ -23,7 +23,7 @@ def create():
 
 	#print lines[1:]
 
-	user = 1#int(raw_input("Instance Admin? (Choose number)\n[1] Ismail\n[2] Zen\n[3] Marjan\n--> "))
+	user = 1#int(raw_input("Instance Admin? (Choose number)
 	aws_user_info = lines[user].split(',')
 	aws_access_key_id = aws_user_info[1].strip()
 	aws_secret_access_key = aws_user_info[2].strip()
@@ -61,20 +61,15 @@ def create():
 			access only from authorized IP address and ports. For more details, see See
 				http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html 
 	'''
-	try:
-		conn.delete_security_group('csc326-group28')
-	except Exception as exception:
-		print "got exception in delete_security_group"
-
-	print "deleting old"
+	
 
 
 	#Create Security Group
 	try:
-		security_group = conn.create_security_group('g326-1-017','my instance') #return typeboto.ec2.securitygroup.SecurityGroup
+		security_group = conn.create_security_group('g326','my instance') #return typeboto.ec2.securitygroup.SecurityGroup
 	except Exception as exception:
 		for i in conn.get_all_security_groups():
-			if i.name == 'g326-1-017':
+			if i.name == 'g326':
 				security_group = i
 		print "Exception returned: ", exception
 
@@ -155,12 +150,8 @@ def create():
 	print "instance.ip_address is: ", instance.ip_address
 	#print "boto.ec2.instance.Instance.ip_address is: ", boto.ec2.instance.Instance.ip_address
 
-	print "Instance is running"
+	print "Instance is now running"
 	time.sleep(1)
-
-
-
-	print "instance id is ", instance.instance_id
 
 	#Unsure
 	print "Waiting for server to be stable.."
@@ -168,38 +159,21 @@ def create():
 		time.sleep(1)
 		sys.stdout.write(str(i)+' ')
 	sys.stdout.flush()
-	print "Server stable.."
+	print "Server is now stable.."
 
-
-	#subprocess
-	#ssh -i key_pair.pem ubuntu@<PUBLIC-IP-ADDRESS>
-	#scp -i key_pair.pem <FILE-PATH> ubuntu@<PUBLIC-IP-ADDRESS>:~/<REMOTE-PATH>
-	print "Moving setupAWS.sh to AWS Ubuntu instance at ip address: ", instance.ip_address
-	subprocess.call("scp -i %s.pem -o StrictHostKeyChecking=no setupAWS.sh ubuntu@%s:~/" % (key_pair_name, instance.ip_address), shell=True)
-	print "Moved setupAWS.sh"
-
-	print "running script on remote server.."
-	subprocess.Popen(("ssh -i %s.pem ubuntu@%s /bin/bash ~/setupAWS.sh" % (key_pair_name, instance.ip_address)).split())
-
-	print "Search engine will be running on %s:8080" % instance.ip_address
-	print "Instance ID and Instance IP address: (%s, %s)" % (instance.id, instance.ip_address)
-	print "Instance ID and public IP returned. Setting up environment tools and dependencies for the server on the host machine"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	print "Instance ID and Instance IP address: %s, %s" % (instance.id, instance.ip_address)
+	print "Search engine running on %s on port 8080" % instance.ip_address
 
 #-----------------------------------------------------------------------------------------------------------------------
+
+	os.system("makeInstanceAWSPart2.py 1")
+
+
 if __name__ == '__main__':
 	create()	
+
+
+
+
+
 

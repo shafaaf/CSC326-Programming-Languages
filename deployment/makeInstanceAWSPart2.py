@@ -3,13 +3,16 @@ import sys
 import time
 import subprocess
 
-if len(sys.argv) != 2:
+if len(sys.argv) != 3:
 	print "incorrect number of arguments passed"
-	print "Correct format:\npython terminate.py <instance_id>"
+	print "Correct format:\npython terminate.py <instance_id> <public_id>"
 	sys.exit()
 
 instance_ID = sys.argv[1]
 print 'instance ID is: ', instance_ID
+
+public_ip = sys.argv[2]
+print 'public_ip ID is: ', public_ip
 
 try:
 	with open ('credentials.csv', 'r') as f:
@@ -54,11 +57,14 @@ print "instances is: ", instances
 '''
 
 
-# Change these when needed
-myPublicIp = "54.160.115.230"
-myInstanceId = "i-07841355d280673aa"
-key_pair_name = 'key_pair_test2'
+# IMP ---Change these as needed. Get from seeing print statements from makeInstanceAWSPart1.py
+#myPublicIp = "54.160.115.230"
+#myInstanceId = "i-07841355d280673aa"
+#key_pair_name = 'key_pair_test2'
 
+myPublicIp = public_ip
+myInstanceId = instance_ID
+key_pair_name = 'key_pair_test2'
 
 
 print "Before scp/ssh"

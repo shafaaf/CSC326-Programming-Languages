@@ -150,7 +150,7 @@ def create():
 	print "instance.ip_address is: ", instance.ip_address
 	#print "boto.ec2.instance.Instance.ip_address is: ", boto.ec2.instance.Instance.ip_address
 
-	print "Instance is running"
+	print "Instance is now running"
 	time.sleep(1)
 
 	#Unsure
@@ -159,11 +159,10 @@ def create():
 		time.sleep(1)
 		sys.stdout.write(str(i)+' ')
 	sys.stdout.flush()
-	print "Server stable.."
+	print "Server is now stable.."
 
-	print "Search engine will be running on %s:8080" % instance.ip_address
-	print "Instance ID and Instance IP address: (%s, %s)" % (instance.id, instance.ip_address)
-
+	print "Instance ID and Instance IP address: %s, %s" % (instance.id, instance.ip_address)
+	print "Search engine running on %s on port 8080" % instance.ip_address
 
 if __name__ == '__main__':
 	create()	
