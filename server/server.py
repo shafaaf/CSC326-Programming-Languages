@@ -125,11 +125,13 @@ def sendIndexPage():
 
         global urlList
         #urlList = getResults("dbFile.db", keywordList[0])
-        urlList = getResults_multiword(keywordList)
+        newKeywordList = keywordList
+        urlList = getResults_multiword(newKeywordList)
         shortenedUrlList = [url[0:50]+'...' if len(url) > 50 else url for url in urlList]
-
-        print "DEBUG: urlList is now: ", urlList
-        print "DEBUG: shortenedUrlList is now: ", shortenedUrlList
+        print "DEBUG: keywordList is now: ", keywordList
+        
+        #print "DEBUG: urlList is now: ", urlList
+        #print "DEBUG: shortenedUrlList is now: ", shortenedUrlList
 
 #-------------------Make current search stats, not historical------------
                 

@@ -67,7 +67,7 @@
 					        </div>
 <!-- _______________________________________________-->
 
-					        <!-- History summary of the user's searches. Todo: May move this to modal section-->
+					        <!-- History summary of the user's searches. Todo: May move this to modal section
 							<h3 style = "text-align:center"> Results for top 20 most searched keywords</h3>
 							<table id = "history" style = "text-align:center">
 								<tr>
@@ -80,8 +80,10 @@
 									<td>{{b}} </td>
 								</tr>
 								% end
-							</table>						
-						
+							</table>
+							-->		
+											
+							<!--
 							<h3 style = "text-align:center"> Results for 10 most recent keywords</h3>
 							<table id = "history" style = "text-align:center">
 								<tr>
@@ -95,6 +97,7 @@
 								</tr>
 								% end
 							</table>
+							-->
 <!-- _______________________________________________-->
 							
 							<br>
