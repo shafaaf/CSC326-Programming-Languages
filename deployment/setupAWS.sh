@@ -21,7 +21,7 @@ sudo apt-get install -y python-pip
 printf "\nInstalling libenchant1c2a..\n"
 sudo apt-get install -y libenchant1c2a
 
-printf "\nsetupAWS.sh: Cloning CSC326 project from Shafaaf's github"
+printf "\nsetupAWS.sh: Cloning CSC326 project\n"
 sudo git clone https://github.com/shafaaf/csc326ProgrammingLanguages.git
 sudo chmod -R 777 csc326ProgrammingLanguages/
 cd csc326ProgrammingLanguages/

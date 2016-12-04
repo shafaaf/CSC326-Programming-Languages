@@ -64,7 +64,7 @@ print "instances is: ", instances
 
 myPublicIp = public_ip
 myInstanceId = instance_ID
-key_pair_name = 'key_pair_test2'
+key_pair_name = 'key_pair_test3'
 
 
 print "Before scp/ssh"

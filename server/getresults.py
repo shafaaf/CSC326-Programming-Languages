@@ -1,52 +1,48 @@
-import sqlite3 as lite
+import redis
 
-searchedWords = {}
 
-def getResults(db_file, searchWord):
+def getResults(searchWord):
     
-    # If word previously searched, return the word
-    if searchWord in searchedWords:
-        return searchedWords[searchWord]
+    r_conn = redis.Redis()
+
+    word_id = r_conn.get(searchWord)
+
+    doc_id_list = r_conn.smembers("inverted_"+word_id)
+
+    for doc_id in doc_id_list:
+        r_conn.zadd("results_"+searchWord, doc_id, r_conn.zscore("pageranks",
+        doc_id))
+
+    url_list_ids = r_conn.zrevrangebyscore("results_"+searchWord, "+inf", "-inf")
+    url_list = [r_conn.hget("doc_id_"+x, "url") for x in url_list_ids]
+
+    return url_list
+
+
+def getResults_multiword(searchWord_list):
     
-    con = lite.connect("dbFile.db")
-    curs = con.cursor()
+    r_conn = redis.Redis()
+    results = {}
 
-    
-    queryString = "CREATE TABLE word_id AS SELECT distinct lexicon.wordid FROM lexicon WHERE lexicon.word = '%s';" % searchWord
-    curs.execute(queryString) 
+    for word in searchWord_list:
+        word_id = r_conn.get(word)
+        if word_id is not None:
+            doc_id_list = r_conn.smembers("inverted_"+word_id)
 
-    curs.execute("CREATE TABLE docid_list AS SELECT distinct invertedIndex.docid from word_id inner join invertedIndex ON word_id.wordid = invertedIndex.wordid;")
+            for doc_id in doc_id_list:
+                if doc_id not in results:
+                    results[doc_id] = r_conn.zscore("pageranks", doc_id)
+                else:
+                    results[doc_id] += r_conn.zscore("pageranks", doc_id)
+    results_list = [(a,b) for a,b in results.items()]
+    results_list_sorted = sorted(results_list, key=lambda a: a[1], reverse=True)
 
-    curs.execute("SELECT * FROM docid_list;")
-    for row in curs:
-        print row
+    url_list = [r_conn.hget("doc_id_"+x[0], "url") for x in results_list_sorted]
 
-    print "\n\npage ranks"
-    curs.execute("SELECT * FROM pageRanks;")
-    for row in curs:
-        print row
-
-    curs.execute("CREATE TABLE result_id_list AS SELECT distinct docid_list.docid, pageRanks.pagerank FROM docid_list inner join pageRanks ON docid_list.docid = pageRanks.docid order by pageRanks.pagerank desc;")
-
-
-    urlListObject = curs.execute("SELECT distinct documentIndex.url FROM result_id_list inner join documentIndex on result_id_list.docid = documentIndex.docid;")
-    urlList = []
-    for row in urlListObject:
-        urlList.append(row[0])
-
-    # Remove temporary tables
-    curs.execute("DROP TABLE IF EXISTS word_id;")
-    curs.execute("DROP TABLE IF EXISTS docid_list;")
-    curs.execute("DROP TABLE IF EXISTS result_id_list;")
-
-    # Add to dictionary of searched words
-    searchedWords[searchWord] = urlList
-
-    return urlList
-
+    return url_list
 
 if __name__ == "__main__":
-    wordToSearch = "department"
-    print getResults("dbFile.db", wordToSearch)
-
+    wordToSearch = "toronto"
+    getResults(wordToSearch)
+    print getResults_multiword(["toronto", "research"])
     

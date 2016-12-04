@@ -124,8 +124,8 @@ def sendIndexPage():
         #urlList = []
 
         global urlList
-        urlList = getResults("dbFile.db", keywordList[0])
-
+        #urlList = getResults("dbFile.db", keywordList[0])
+        urlList = getResults_multiword(keywordList)
         shortenedUrlList = [url[0:50]+'...' if len(url) > 50 else url for url in urlList]
 
         print "DEBUG: urlList is now: ", urlList

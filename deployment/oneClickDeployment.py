@@ -2,6 +2,7 @@ import boto.ec2
 import time
 import sys
 import subprocess
+import os
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -164,7 +165,17 @@ def create():
 	print "Instance ID and Instance IP address: %s, %s" % (instance.id, instance.ip_address)
 	print "Search engine running on %s on port 8080" % instance.ip_address
 
+#-----------------------------------------------------------------------------------------------------------------------
+	print "Now calling part 2 to transfer files."
+	variables = "python ./makeInstanceAWSPart2.py " + instance.id + " " + instance.ip_address
+	os.system(variables)
+
+
 if __name__ == '__main__':
 	create()	
+
+
+
+
 
 

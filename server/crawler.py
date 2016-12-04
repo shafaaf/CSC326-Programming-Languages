@@ -25,8 +25,7 @@ from BeautifulSoup import *
 from collections import defaultdict
 import re
 import pagerank as pr
-import sqlite3 as lite
-from getresults import getResults
+import redis
 
 
 def attr(elem, attr):
@@ -46,12 +45,13 @@ class crawler(object):
     This crawler keeps track of font sizes and makes it simpler to manage word
     ids and document ids."""
 
-    def __init__(self, db_conn, url_file):
+    def __init__(self, db_conn, url_file, redis_conn = None):
         """Initialize the crawler with a connection to the database to populate
         and with the file containing the list of seed URLs to begin indexing."""
         self._url_queue = [ ]
         self._doc_id_cache = { }
         self._word_id_cache = { }
+
     
         # (Sai) Data structures for function backend
         self._document_index = []
@@ -60,15 +60,8 @@ class crawler(object):
         self._links = {}
 
         # (Sai) Redis connection
-
-   
-        # (Sai) Persistent Store database tables
-        self._db_conn = db_conn
-        self._cur = self._db_conn.cursor()
-        self._cur.execute('''CREATE TABLE IF NOT EXISTS documentIndex(docid INTEGER PRIMARY KEY, url TEXT);''')
-        self._cur.execute('''CREATE TABLE IF NOT EXISTS lexicon(wordid INTEGER PRIMARY KEY, word TEXT);''')
-        self._cur.execute('''CREATE TABLE IF NOT EXISTS invertedIndex(entryno INTEGER PRIMARY KEY, wordid INTEGER, docid INTEGER);''')
-        self._cur.execute('''CREATE TABLE IF NOT EXISTS pageRanks(docid INTEGER PRIMARY KEY, pagerank REAL);''')
+        if redis_conn is not None:
+            self._r_conn = redis_conn
 
         # functions to call when entering and exiting specific tags
         self._enter = defaultdict(lambda *a, **ka: self._visit_ignore)
@@ -153,10 +146,8 @@ class crawler(object):
         elem = [ret_id, str(url), ""]
         self._document_index.append(elem)
 
-        # (Sai) Insert into documentIndex table in db
-        query_str = "INSERT INTO documentIndex VALUES(%d, '%s');" % (ret_id, str(url))
-        self._cur.execute(query_str)
-        self._db_conn.commit()
+        # (Sai) Insert into redis
+        self._r_conn.hmset("doc_id_"+str(ret_id), {"url": url, "title": ""})
 
         return ret_id
     
@@ -167,10 +158,9 @@ class crawler(object):
         ret_id = self._mock_next_word_id
         self._mock_next_word_id += 1
 
-        # (Sai) Insert into lexicon table in db
-        query_str = "INSERT INTO lexicon VALUES(%d, '%s');" % (ret_id, word)
-        self._cur.execute(query_str)
-        self._db_conn.commit()
+        # (Sai) Insert into redis
+        self._r_conn.set("word_id_"+str(ret_id), word)
+        self._r_conn.set(word, str(ret_id))
 
         return ret_id
     
@@ -189,12 +179,9 @@ class crawler(object):
         # (Sai) Update the inverted index with this word id and document id
         self._inverted_index[word_id].add(self._curr_doc_id)
 
-        # (Sai) Update database table for inverted index
-        query_str = "INSERT INTO invertedIndex VALUES(NULL, %d, %d);" % (word_id, self._curr_doc_id)
-        self._cur.execute(query_str)
-        self._db_conn.commit()
+        # (Sai) Add to redis
+        self._r_conn.sadd("inverted_"+str(word_id), self._curr_doc_id)
 
-    
         return word_id
     
     def document_id(self, url):
@@ -378,7 +365,6 @@ class crawler(object):
                 self._curr_words = [ ]
                 self._index_document(soup)
                 self._add_words_to_document()
-                #print "    url="+repr(self._curr_url)
 
             except Exception as e:
                 print e
@@ -415,29 +401,10 @@ class crawler(object):
     
         page_ranks = pr.page_rank(links.keys())
 
-        # (Sai) Insert into page rank table in db
+        # (Sai) Insert into redis
         for doc_id, pagerank in page_ranks.items():
-            query_str = "INSERT INTO pageRanks VALUES(%d, %f);" % (doc_id, pagerank)
-            self._cur.execute(query_str)
-            self._db_conn.commit()
+            redis_ret_val = self._r_conn.zadd("pageranks", str(doc_id), str(pagerank))
 
-        # Pages in page ranks dictionary:
-	pages_in_pr = set(page_ranks.keys())
-
-        # Pages in document index:
-        doc_index_pages = set()
-        for elem in self._document_index:
-            doc_index_pages.add(elem[0])
-
-        # Pages in document index but not page ranks
-        missing_pages = doc_index_pages - pages_in_pr
-
-        # Add missing pages to page rank table with rank of 0:
-        for page in missing_pages:
-            query_str = "INSERT INTO pageRanks VALUES(%d, 0);" % page
-            self._cur.execute(query_str)
-            self._db_conn.commit()
-        
         return page_ranks
 
     def searchWord(self, word):
@@ -452,71 +419,8 @@ class crawler(object):
     
         return sorted_doc_id_list
 
-    def sortDocIds(self, docid_list):
-        # Make a new list
-        sorted_list = list(docid_list)
-
-        # Get page ranks
-        ranks = self.generate_page_ranks(self._links)
-
-    
-        # Sort new list in place according to page ranks
-    
-        for j in range(1,len(sorted_list)):
-            key = sorted_list[j]
-            i = j - 1
-            while i > -1 and ranks[sorted_list[i]] < ranks[key]:
-                sorted_list[i+1] = sorted_list[i]
-                i = i - 1
-            sorted_list[i+1] = key
-        
-        return sorted_list
-
-
 if __name__ == "__main__":
-    con = lite.connect("dbFile.db")
-
-    
-    bot = crawler(con, "urls.txt")
+    r_conn = redis.Redis()
+    bot = crawler(None, "urls.txt", redis_conn = r_conn)
     bot.crawl(depth=1)
     bot.generate_page_ranks(bot._links)
-
-    print "\n\nDocument Index:", bot._document_index
-    #print "\n\nLexicon:", bot._lexicon
-    #print "\n\nInverted Index:", bot.get_inverted_index()
-    #print "\n\nResolved Inverted Index:", bot.get_resolved_inverted_index()
-
-
-    #print "\n\nDocument Index:"
-    #for entry in bot._document_index:
-        #print entry
-
-    #print "\n\nLexicon:"
-    #for word, word_id in bot._lexicon.items():
-        #print "\t", word, ":\t", word_id
-
-    #print "\n\nInverted Index:"
-    #for word_id, doc_id_set in bot.get_inverted_index().items():
-        #print "\t", word_id, ":\t", doc_id_set 
-
-    #print "\n\nResolved Inverted Index:"
-    #for word, urls in bot.get_resolved_inverted_index().items():
-        #print "\t", word, ":\t", urls
-
-    #print "\n\nLinks:"
-    #print bot._links.keys()
-
-    #print "\n\nPage Ranks:"
-    #print pr.page_rank(bot._links.keys())
-
-
-    
-    #curs = con.cursor()
-
-    #curs.execute("SELECT * FROM pageRanks;")
-    #curs.execute("SELECT * FROM pageRanks;")
-    #for row in curs:
-    #    print row
-
-
-
