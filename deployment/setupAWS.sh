@@ -38,4 +38,3 @@ nohup sudo redis-server&
 
 nohup sudo python server.py&
 printf "\nsetupAWS.sh: Running python web server..."
-
