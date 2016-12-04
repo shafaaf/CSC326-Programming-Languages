@@ -15,6 +15,9 @@ sudo apt-get install -y build-essentialnu
 printf "\nsetupAWS.sh: Installing python-dev..."
 sudo apt-get install -y python-dev
 
+printf "\nsetupAWS.sh: Installing redis-server..."
+sudo apt-get install -y redis-server
+
 printf "\nsetupAWS.sh: Installing pip.."
 sudo apt-get install -y python-pip
 
@@ -29,6 +32,10 @@ cd csc326ProgrammingLanguages/
 printf "\nsetupAWS.sh: Pip installing requirements.txt\n"
 sudo pip install -r requirements.txt
 cd server
+
+printf "\nsetupAWS.sh: Running redis-server..."
+sudo redis-server&
+
 sudo python server.py
-printf "\nsetupAWS.sh: Running server..."
+printf "\nsetupAWS.sh: Running python web server..."
 
