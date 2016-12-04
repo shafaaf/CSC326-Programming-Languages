@@ -1,8 +1,14 @@
-import boto.ec2
+
+
 import time
 import sys
 import subprocess
 import os
+
+
+os.system(pip install -U boto)
+import boto.ec2
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 

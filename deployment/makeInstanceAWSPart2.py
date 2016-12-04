@@ -83,10 +83,10 @@ print "Moved setupAWS.sh"
 print "running script on remote server.."
 subprocess.Popen(("ssh -i %s.pem ubuntu@%s /bin/bash ~/setupAWS.sh" % (key_pair_name, myPublicIp)).split())
 
-print "Search engine will be running on %s:8080" % myPublicIp
-print "Instance ID and Instance IP address: (%s, %s)" % (myInstanceId, myPublicIp)
-print "Instance ID and public IP returned. Setting up environment tools and dependencies for the server on the host machine"
-
+print "Now setting up environment on ec2"
+print "\n\n\nFINAL: Instance ID and Instance IP address: (%s, %s)" % (myInstanceId, myPublicIp)
+print "CSC326 Search engine will be running on %s:8080" % myPublicIp
+print "Instance ID and public IP returned."
 
 
 

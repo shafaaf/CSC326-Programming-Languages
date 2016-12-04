@@ -29,7 +29,6 @@ sudo git clone https://github.com/shafaaf/csc326ProgrammingLanguages.git
 sudo chmod -R 777 csc326ProgrammingLanguages/
 cd csc326ProgrammingLanguages/
 
-
 ./localSetup.sh
 
 '''printf "\nsetupAWS.sh: Pip installing requirements.txt\n"
