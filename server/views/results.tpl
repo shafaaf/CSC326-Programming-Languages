@@ -164,10 +164,11 @@
 				</tr>
 				% end
 				-->			
-				% for url, shorturl in zip(urlList, shortenedUrlList):			
+				<!--% for url, shorturl in zip(urlList, shortenedUrlList):-->
+				% for url in urlList:
 					<tr>
 						<td>
-							<p><a href = {{url}}>{{shorturl}}</a></p>
+							<p>{{url}}</a></p>
 						</td>
 					</tr>
 				% end
