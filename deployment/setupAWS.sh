@@ -29,7 +29,10 @@ sudo git clone https://github.com/shafaaf/csc326ProgrammingLanguages.git
 sudo chmod -R 777 csc326ProgrammingLanguages/
 cd csc326ProgrammingLanguages/
 
-printf "\nsetupAWS.sh: Pip installing requirements.txt\n"
+
+./localSetup.sh
+
+'''printf "\nsetupAWS.sh: Pip installing requirements.txt\n"
 sudo pip install -r requirements.txt
 cd server
 
@@ -38,3 +41,4 @@ nohup sudo redis-server&
 
 nohup sudo python server.py&
 printf "\nsetupAWS.sh: Running python web server..."
+'''
