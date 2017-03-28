@@ -1,0 +1,51 @@
+/*
+
+id - #
+class - .
+*/
+
+h1{
+	text-align:center;
+}
+
+table{
+	text-align:center;
+	margin-left:46%;
+}
+
+h2{
+	text-align:center;
+}
+
+
+#signInBtn{
+	font-size: 150%;
+	color:black;
+}
+
+
+/* Inside the modal form */
+#profilePicture{
+	text-align: center;
+	width:40%;
+}
+
+#mostRecent{
+	text-align: center;
+}
+
+#QueryInput{
+	width:50%;
+}
+
+/*from autocorrect import spell
+        print spell('toRontw')
+        from enchant.checker import SpellChecker
+        text = keywords
+        chkr = SpellChecker("en_US",text)
+        for err in chkr:
+			print "err.word is {}".format(err.word)
+			correctWord = spell(err.word)
+			err.replace(correctWord)
+			print chkr.get_text()
+*/

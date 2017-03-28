@@ -1,0 +1,49 @@
+/*
+	For classes: .
+	For ids: #
+*/
+
+#heading{
+	text-align: center;
+}
+
+#doodleHeading{
+	text-align: center;
+	width:100%;
+}
+
+#signInBtn{
+	font-size: 150%;
+	color:black;
+}
+
+/* Inside the modal form */
+#profilePicture{
+	text-align: center;
+	width:40%;
+}
+
+/* Query search section */
+#logoImage{
+}
+
+#queryInput{
+	width:80%;
+	margin: 0 auto;
+}
+
+#queryForm{
+	text-align: center;
+}
+
+/*---------------------------------------------*/
+
+
+@media screen and (min-width: 600px) {
+	#logoImage{
+    	margin-left: 12%;
+	}
+	#doodleHeading{
+		width:100%;
+	}
+}
